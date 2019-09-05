@@ -22,7 +22,7 @@ VALUES
 ("Spaced: The Complete Series", "Movies/TV", 29.98, 100),
 ("Arwen Evenstar Pendant - Lord of The Rings", "Jewelry", 149, 20),
 ("3D Skull Ice Mold Silicone Tray", "Kitchen", 14.95, 70),
-("Horror House Shower Curtain", "Home Decor", 19.95, 30),
+("Horror House Shower Curtain", "Home Decor", 19.95, 30);
 
 
 
