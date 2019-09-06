@@ -26,8 +26,7 @@ startConnection(displayProducts);
 function displayProducts() {
     connection.query('SELECT * FROM products ORDER BY item_id ASC', function (err, results) {
         if (err) throw (err);
-     
-        console.log("\nWelcome to Bamazon!");
+        console.log("\nWelcome to BAMAZON!!!");
         console.log("\nRare and Wonderful:");
         var result = results
         var table = new Table({ head: ['ID Number', 'Product Name', 'Price'] });
@@ -49,32 +48,32 @@ function selectItem() {
         .prompt([
             {
                 message: "Select the item you would like to purchase by ID number:",
-                name: 'customerSelect',
+                name: 'aItem',
                 type: 'input',
                 validate: function (value) {
                     if (isNaN(value) === false) {
                         return true;
                     }
-                    console.log("\nPlease input a proper ID number. Thank you!")
+                    console.log("\nPlease seclect ID number. Thank you!")
                     return false;
                 }
             },
             {
                 name: 'quantity',
                 type: "input",
-                message: 'How many units would you like to purchase?',
+                message: 'How many would you like to purchase?',
                 validate: function (value) {
                     if (isNaN(value) === false) {
                         return true;
                     }
-                    console.log("\nPlease input a number. Thank you!")
+                    console.log("\nPlease select quantity. Thank you!")
                     return false;
                 }
             }
        
         ])
       .then(function (answers) {
-            var id = answers.customerSelect;
+            var id = answers.aItem;
             var quantity = answers.quantity;
             connection.query('SELECT * FROM products WHERE item_id = ' + id, function (err, results) {
                 if (err) throw (err);
