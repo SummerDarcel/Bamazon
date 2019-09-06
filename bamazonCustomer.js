@@ -11,17 +11,104 @@ var connection = mysql.createConnection({
   database: "bamazon"
 });
 
+function startConnection(cb) {
+    connection.connect(function (err) {
+        if (err) throw (err);
+        if (cb) {
+            cb();
+        }
+    })
+}
 //Display all of the items available for sale
 
+startConnection(displayProducts);
+
+function displayProducts() {
+    connection.query('SELECT * FROM products ORDER BY item_id ASC', function (err, results) {
+        if (err) throw (err);
+     
+        console.log("\nWelcome to Bamazon!");
+        console.log("\nRare and Wonderful:");
+        var result = results
+        var table = new Table({ head: ['ID Number', 'Product Name', 'Price'] });
+
+        for (var i = 0; i < results.length; i++) {
+            var object = [result[i].item_id, result[i].product_name, result[i].price]
+            table.push(object);
+        }
+        console.log(table.toString() + "\n");
+        selectItem();
+    })
+}
 //Prompt users with two messages
 //The first should ask them the ID of the product they would like to buy.
 //The second message should ask how many units of the product they would like to buy.
 
-//Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
+function selectItem() {
+    inquirer
+        .prompt([
+            {
+                message: "Select the item you would like to purchase by ID number:",
+                name: 'customerSelect',
+                type: 'input',
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    console.log("\nPlease input a proper ID number. Thank you!")
+                    return false;
+                }
+            },
+            {
+                name: 'quantity',
+                type: "input",
+                message: 'How many units would you like to purchase?',
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    console.log("\nPlease input a number. Thank you!")
+                    return false;
+                }
+            }
+       
+        ])
+      .then(function (answers) {
+            var id = answers.customerSelect;
+            var quantity = answers.quantity;
+            connection.query('SELECT * FROM products WHERE item_id = ' + id, function (err, results) {
+                if (err) throw (err);
+                var result = results[0]
+                var itemPrice = result.price;
+                if (quantity > result.stock_quantity) {
+                    console.log("Sorry there is not enough in stock!")
+                    endConnection();
+                    return;
+                }
+                updateQuantity(id, quantity, itemPrice)
+            });
+        })
+}
 
-//If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
+function updateQuantity(idNumber, amount, price) {
+    connection.query('UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?', [amount, idNumber], function (err, results) {
+        if (err) throw (err);
+        console.log('\nYour total is $' + price * amount + "." + "\n" + "Thank you for shopping with BAMAZON!" + "\n");
+        endConnection();
+    })
+}
 
-//
+function endConnection() {
+    connection.end();
+}
+
+
+
+
+
+
+
+
 
 
 
