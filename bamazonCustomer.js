@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "mysqlworkbench",
-  database: "bamazon"
+  database: "bamazon_db"
 });
 
 function startConnection(cb) {
@@ -81,7 +81,8 @@ function selectItem() {
                 var itemPrice = result.price;
                 if (quantity > result.stock_quantity) {
                     console.log("Sorry there is not enough in stock!")
-                    endConnection();
+                    selectItem ();
+                    // endConnection();
                     return;
                 }
                 updateQuantity(id, quantity, itemPrice)
