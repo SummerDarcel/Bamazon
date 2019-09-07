@@ -3,7 +3,7 @@ BAMAZON is an Amazon-like storefront. Customers have the ability to browse throu
 
 The customer selects which product they want to purchase by entering the product's ID number. 
 
-Next, the customer is prompted to enter in the amount of items they want to purchase. If BAMAZON has stock, the customer gets the total and the store's inventory will be updated in MySQL.
+Next, the customer is prompted to enter in the amount of items they want to purchase. If BAMAZON has stock, the customer gets the total and the store's inventory will be updated in MySQL. If the product is not in stock the app will restart.
 
 ![CustomerDemo](./images/CustomerV.gif)
 
@@ -17,8 +17,7 @@ With Manager View, the manager is able to:
 
 ![Manager Demo](./images/MgmT.gif)
 
-
-
+Built with Javascript, Node.js and MySQL.
 
 
 
