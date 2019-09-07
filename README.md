@@ -1,21 +1,26 @@
-# Bamazon
-An Amazon-like storefront with the MySQL. The app will take in orders from customers and deplete stock from the store's inventory.
+# Bamazon!!!
+BAMAZON is an Amazon-like storefront. Customers have the ability to browse through products in different departments. 
 
-You can also track product sales across your store's departments and provide a summary of the highest-grossing departments in the store.
+The customer selects which product they want to purchase by entering the product's ID number. 
 
+Next, the customer is prompted to enter in the amount of items they want to purchase. If BAMAZON has stock, the customer gets the total and the store's inventory will be updated in MySQL.
 
+![CustomerDemo](./images/CustomerV.gif)
 
+# BAMAZON!!! Manager
+With Manager View, the manager is able to:
 
-
-
-
-
-![CustomerDemo](./images/CustomB.gif.mp4)
-
-
-
-
-
+* View Current Products for Sale:thumbsup:
+* View Low Inventory - Products that have 5 items or less in stock :point_down:
+* Add Inventory - Increase quantity avaiable for sale :point_up_2:
+* Add New Product - This option gives the manager the ability to add a new product to the MySQL database. :handshake:
 
 ![Manager Demo](./images/MgmT.gif)
+
+
+
+
+
+
+
 
