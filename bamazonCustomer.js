@@ -1,6 +1,6 @@
 var mysql = require("mysql2");
-var inquirer = require('inquirer');
-var Table = require('cli-table');
+var inquirer = require("inquirer");
+var Table = require("cli-table");
 
 
 var connection = mysql.createConnection({
@@ -24,12 +24,12 @@ function startConnection(cb) {
 startConnection(displayProducts);
 
 function displayProducts() {
-    connection.query('SELECT * FROM products ORDER BY item_id ASC', function (err, results) {
+    connection.query("SELECT * FROM products ORDER BY item_id ASC", function (err, results) {
         if (err) throw (err);
         console.log("\nWelcome to BAMAZON!!!");
-        console.log("\nRare and Wonderful:");
+        console.log("\nRare and Wonderful");
         var result = results
-        var table = new Table({ head: ['ID Number', 'Product Name', 'Price'] });
+        var table = new Table({ head: ["ID Number", "Product Name", "Price"] });
 
         for (var i = 0; i < results.length; i++) {
             var object = [result[i].item_id, result[i].product_name, result[i].price]
@@ -48,8 +48,8 @@ function selectItem() {
         .prompt([
             {
                 message: "Select the item you would like to purchase by ID number:",
-                name: 'aItem',
-                type: 'input',
+                name: "aItem",
+                type: "input",
                 validate: function (value) {
                     if (isNaN(value) === false) {
                         return true;
@@ -59,9 +59,9 @@ function selectItem() {
                 }
             },
             {
-                name: 'quantity',
+                name: "quantity",
                 type: "input",
-                message: 'How many would you like to purchase?',
+                message: "How many would you like to purchase?",
                 validate: function (value) {
                     if (isNaN(value) === false) {
                         return true;
@@ -75,7 +75,7 @@ function selectItem() {
       .then(function (answers) {
             var id = answers.aItem;
             var quantity = answers.quantity;
-            connection.query('SELECT * FROM products WHERE item_id = ' + id, function (err, results) {
+            connection.query("SELECT * FROM products WHERE item_id = " + id, function (err, results) {
                 if (err) throw (err);
                 var result = results[0]
                 var itemPrice = result.price;
@@ -91,9 +91,9 @@ function selectItem() {
 }
 
 function updateQuantity(idNumber, amount, price) {
-    connection.query('UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?', [amount, idNumber], function (err, results) {
+    connection.query("UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?", [amount, idNumber], function (err, results) {
         if (err) throw (err);
-        console.log('\nYour total is $' + price * amount + "." + "\n" + "Thank you for shopping with BAMAZON!" + "\n");
+        console.log("\nYour total is $" + price * amount + "." + "\n" + "Thank you for shopping with BAMAZON!" + "\n");
         endConnection();
     })
 }
